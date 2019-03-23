@@ -13,3 +13,5 @@ $ git submodule init
 $ git submodule update
 $ ./gradlew assembleRelease
 ```
+
+BWAP is the end all
