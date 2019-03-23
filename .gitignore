@@ -16,3 +16,5 @@ build/
 *.jks
 keystore.properties
 package-info.java
+app/debug/
+app/release/

@@ -22,22 +22,22 @@ android {
         buildConfigField 'int', 'MIN_SDK_VERSION', "$minSdkVersion.apiLevel"
     }
     // If the keystore file exists
-    if (keystorePropertiesFile.exists()) {
-        // Initialize a new Properties() object called keystoreProperties.
-        final def keystoreProperties = new Properties()
-
-        // Load your keystore.properties file into the keystoreProperties object.
-        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
-        signingConfigs {
-            release {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-            }
-        }
-    }
+//    if (keystorePropertiesFile.exists()) {
+//        // Initialize a new Properties() object called keystoreProperties.
+//        final def keystoreProperties = new Properties()
+//
+//        // Load your keystore.properties file into the keystoreProperties object.
+//        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//
+//        signingConfigs {
+//            release {
+//                keyAlias keystoreProperties['keyAlias']
+//                keyPassword keystoreProperties['keyPassword']
+//                storeFile file(keystoreProperties['storeFile'])
+//                storePassword keystoreProperties['storePassword']
+//            }
+//        }
+//    }
     buildTypes {
         release {
             if (keystorePropertiesFile.exists()) signingConfig signingConfigs.release
@@ -80,6 +80,7 @@ ext {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation "androidx.annotation:annotation:$annotationsVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"

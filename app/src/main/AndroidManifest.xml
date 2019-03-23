@@ -16,9 +16,12 @@
         android:label="@string/permission_label"
         android:protectionLevel="dangerous" />
 
+    <!--TODO take out usesCleartext for the love of god-->
+
     <application
         android:name=".Application"
         android:allowBackup="false"
+        android:usesCleartextTraffic="true"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
