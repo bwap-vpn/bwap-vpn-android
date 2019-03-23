@@ -80,6 +80,7 @@ ext {
 }
 
 dependencies {
+    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation "androidx.annotation:annotation:$annotationsVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.cardview:cardview:$cardviewVersion"
