@@ -5,8 +5,12 @@
 
 package com.wireguard.android.backend;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
+
+import com.wireguard.android.R;
 
 import java.io.IOException;
 
@@ -15,9 +19,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class RetrieveKeyTask extends AsyncTask <String, Void, String> {
+    private final Activity activity;
 
-//    private Exception exception;
+    public RetrieveKeyTask(final Activity activity) {
+        this.activity = activity;
+    }
 
+    @Override
     protected String doInBackground(String... nothing) {
         final Request request = new Request.Builder()
                 .url("http://104.197.64.12:8000/user5.conf")
@@ -32,10 +40,19 @@ public class RetrieveKeyTask extends AsyncTask <String, Void, String> {
             key = response.body().string();
             Log.i("ASDF", key);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("BWAP call error", "exception", e);
             key = "error";
         }
 
         return key;
     }
+
+    @Override
+    protected void onPostExecute(String feed) {
+        final TextView textView = (TextView)activity.findViewById(R.id.tunnel_list_label);
+
+        textView.setText(feed);
+    }
+
+
 }

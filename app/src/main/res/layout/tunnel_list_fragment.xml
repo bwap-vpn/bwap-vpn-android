@@ -59,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/tunnel_list_label"
                 android:text="@string/tunnel_list_placeholder"
                 android:textSize="20sp" />
         </LinearLayout>

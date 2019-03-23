@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity
         if (actionBarView != null)
             actionBarView.setOnTouchListener((v, e) -> listFragment != null && listFragment.collapseActionMenu());
 
-        new RetrieveKeyTask().execute("");
+        new RetrieveKeyTask(this).execute();
     }
 
     @Override
