@@ -66,11 +66,11 @@ import java9.util.stream.StreamSupport;
 
 public class TunnelListFragment extends BaseFragment {
     private static final int REQUEST_IMPORT = 1;
-    private static final String TAG = "WireGuard/" + TunnelListFragment.class.getSimpleName();
+    public static final String TAG = "WireGuard/" + TunnelListFragment.class.getSimpleName();
 
     private final ActionModeListener actionModeListener = new ActionModeListener();
     @Nullable private ActionMode actionMode;
-    @Nullable private TunnelListFragmentBinding binding;
+    @Nullable public TunnelListFragmentBinding binding; // TODO : Make this private again!
 
     public boolean collapseActionMenu() {
         if (binding != null && binding.createMenu.isExpanded()) {
