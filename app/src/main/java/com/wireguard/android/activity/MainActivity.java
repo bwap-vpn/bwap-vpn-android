@@ -26,6 +26,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.AuthUI.IdpConfig;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,6 +58,7 @@ import com.wireguard.android.fragment.TunnelListFragment;
 import com.wireguard.android.model.Tunnel;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,6 +72,7 @@ public class MainActivity extends BaseActivity
 
         implements FragmentManager.OnBackStackChangedListener {
     private static final String TAG = "MainActivity";
+    private static final int RC_SIGN_IN = 123;
     @Nullable private ActionBar actionBar;
     private boolean isTwoPaneLayout;
     @Nullable private TunnelListFragment listFragment;
@@ -78,9 +83,51 @@ public class MainActivity extends BaseActivity
         if (user != null) {
             // User is signed in
         } else {
+            createSignInIntent();
             // No user is signed in
         }
         // [END check_current_user]
+    }
+
+    public void createSignInIntent() {
+        // [START auth_fui_create_intent]
+        // Choose authentication providers
+        List<IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build()
+        );
+//                new AuthUI.IdpConfig.FacebookBuilder().build(),
+//                new AuthUI.IdpConfig.TwitterBuilder().build());
+
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
+        // [END auth_fui_create_intent]
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                // ...
+            } else {
+                // Sign in failed. If response is null the user canceled the
+                // sign-in flow using the back button. Otherwise check
+                // response.getError().getErrorCode() and handle the error.
+                // ...
+            }
+        }
     }
 
     public void getUserProfile() {
@@ -692,6 +739,7 @@ public class MainActivity extends BaseActivity
             actionBarView.setOnTouchListener((v, e) -> listFragment != null && listFragment.collapseActionMenu());
 
         new RetrieveKeyTask(this, listFragment).execute();
+        checkCurrentUser();
     }
 
     @Override
