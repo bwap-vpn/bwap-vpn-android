@@ -13,8 +13,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.wireguard.android.backend.Backend;
 import com.wireguard.android.backend.GoBackend;
@@ -28,6 +26,8 @@ import com.wireguard.android.util.ToolsInstaller;
 import java.io.File;
 import java.lang.ref.WeakReference;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import java9.util.concurrent.CompletableFuture;
 
 public class Application extends android.app.Application {

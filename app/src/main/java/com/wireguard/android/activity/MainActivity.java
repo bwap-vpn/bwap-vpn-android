@@ -8,20 +8,29 @@ package com.wireguard.android.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.wireguard.android.R;
+import com.wireguard.android.backend.RetrieveKeyTask;
 import com.wireguard.android.fragment.TunnelDetailFragment;
 import com.wireguard.android.fragment.TunnelEditorFragment;
 import com.wireguard.android.fragment.TunnelListFragment;
 import com.wireguard.android.model.Tunnel;
+
+import java.io.IOException;
 
 /**
  * CRUD interface for WireGuard tunnels. This activity serves as the main entry point to the
@@ -80,6 +89,8 @@ public class MainActivity extends BaseActivity
         final View actionBarView = findViewById(R.id.action_bar);
         if (actionBarView != null)
             actionBarView.setOnTouchListener((v, e) -> listFragment != null && listFragment.collapseActionMenu());
+
+        new RetrieveKeyTask(this).execute();
     }
 
     @Override
