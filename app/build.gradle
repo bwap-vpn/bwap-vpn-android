@@ -80,6 +80,9 @@ ext {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation "androidx.annotation:annotation:$annotationsVersion"
@@ -99,3 +102,5 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:unchecked'
     options.deprecation = true
 }
+
+apply plugin: 'com.google.gms.google-services'

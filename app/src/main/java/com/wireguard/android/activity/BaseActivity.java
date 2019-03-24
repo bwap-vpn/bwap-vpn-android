@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.wireguard.android.Application;
+import com.wireguard.android.R;
 import com.wireguard.android.model.Tunnel;
 
 import java.util.Objects;
@@ -37,6 +38,9 @@ public abstract class BaseActivity extends ThemeChangeAwareActivity {
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         // Restore the saved tunnel if there is one; otherwise grab it from the arguments.
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_firebase_ui);
+
         final String savedTunnelName;
         if (savedInstanceState != null)
             savedTunnelName = savedInstanceState.getString(KEY_SELECTED_TUNNEL);
