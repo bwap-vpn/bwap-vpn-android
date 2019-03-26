@@ -18,3 +18,4 @@ keystore.properties
 package-info.java
 app/debug/
 app/release/
+google-services.json
